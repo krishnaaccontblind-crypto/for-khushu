@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Khushu 🥹❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #ff9a9e, #fecfef); display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; padding: 15px; position: relative; }
+        .container { background: rgba(255, 255, 255, 0.95); width: 100%; max-width: 360px; padding: 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); text-align: center; position: relative; z-index: 10; }
+        .screen { display: none; }
+        .active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        h2 { color: #ff3366; font-size: 20px; margin-bottom: 12px; }
+        p { color: #555; font-size: 14px; line-height: 1.5; margin-bottom: 15px; }
+        .btn { background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; border: none; padding: 12px 22px; font-size: 14px; font-weight: bold; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 12px rgba(255, 75, 43, 0.4); margin-top: 10px; width: 100%; }
+        .progress-box { background: #f0f0f0; border-radius: 10px; height: 20px; width: 100%; overflow: hidden; margin: 15px 0; }
+        .progress-fill { background: linear-gradient(90deg, #ff758c, #ff7eb3); height: 100%; width: 0%; transition: width 0.05s linear; }
+        .warning-text { color: #ff0055; font-weight: bold; font-size: 13px; display: none; }
+        .card-item { background: #fff0f3; border: 1px solid #ffccd5; padding: 12px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; color: #ff4d6d; font-weight: 500; font-size: 13px; transition: 0.3s; }
+        .card-item.revealed { background: #ff4d6d; color: white; }
+        .polaroid { background: white; padding: 10px 10px 15px 10px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; transform: rotate(-1deg); }
+        .polaroid img { width: 100%; height: 200px; object-fit: cover; border-radius: 5px; }
+        .polaroid p { margin: 8px 0 0 0; font-weight: bold; color: #ff3366; font-size: 14px; }
+        .envelope-box { font-size: 60px; cursor: pointer; animation: bounce 1.5s infinite; margin: 15px 0; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .letter-content { background: #fff5f7; border: 2px dashed #ffb3c1; padding: 15px; border-radius: 15px; text-align: left; max-height: 250px; overflow-y: auto; font-size: 13px; color: #444; line-height: 1.6; }
+        .falling-heart { position: absolute; top: -10px; font-size: 22px; animation: fall linear forwards; z-index: 1; }
+        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="screen active" id="step1">
+        <h2>Measuring Khushu's Cuteness... 🐒🥺</h2>
+        <div class="progress-box"><div class="progress-fill" id="pFill"></div></div>
+        <p id="pPercent" style="font-weight: bold; color: #ff4d6d;">0%</p>
+        <p class="warning-text" id="warnText">⚠️ WARNING: TOO CUTE TO HANDLE! ❤️‍🔥</p>
+        <button class="btn" id="nextBtn1" style="display: none;" onclick="goToStep(2)">Continue 💕</button>
+    </div>
+
+    <div class="screen" id="step2">
+        <h2>Tap Each Heart To Reveal 💕</h2>
+        <div class="card-item" onclick="revealCard(this, 'I never wanted to be the reason behind your sadness. ❤️‍🩹')">Tap Here... ❤️</div>
+        <div class="card-item" onclick="revealCard(this, 'You are a beautiful part of my life & my happiest memories. 🫶🏻💖')">Tap Here... 💖</div>
+        <div class="card-item" onclick="revealCard(this, 'I miss our silly talks, little fights & masti! 🥹💕🧿')">Tap Here... 🐒</div>
+        <button class="btn" id="nextBtn2" style="display: none;" onclick="goToStep(3)">See Sweet Memories 📸</button>
+    </div>
+
+    <div class="screen" id="step3">
+        <h2 id="photoTitle">dekh hai na tere jaisa panda 🐼</h2>
+        <div class="polaroid" id="polaroidBox">
+            <img id="memoryImg" src="https://i.postimg.cc/ZnN51Npn/278c974dce0de3b1457987522eea60df.jpg" alt="Khushu">
+            <p id="memoryText">You Mean Everything 💖 (1/3)</p>
+        </div>
+        <button class="btn" onclick="nextPhoto()">Next Photo ➡️</button>
+    </div>
+
+    <div class="screen" id="step4">
+        <h2>A Little Note For You 💌</h2>
+        <div class="envelope-box" id="env" onclick="openLetter()">📩</div>
+        <p style="font-size: 12px; color: #888;" id="envHint">Tap to open letter</p>
+        <div class="letter-content" id="letter" style="display: none;">
+            <b>My Cutest Best Friend, Khushu 🥹❤️🐒</b><br><br>
+            I'm sorry, meri besti bandariya. 🥺💗 If I ever made you sad, please forgive me. I never wanted to be the reason behind your sadness. ❤️‍🩹<br><br>
+            You are not just a friend to me; you are a beautiful part of my life and my happiest memories. 🫶🏻💖<br><br>
+            I miss our silly talks, our little fights, our masti, and those moments when everything felt so simple and happy. 🥹💕🧿<br><br>
+            Maybe your best friend is silly, maybe he's a little foolish too, but he's still your best friend, na? 🥹❤️🐒💗<br><br>
+            No friendship is perfect, and we all make mistakes. I just wish we could leave the hurt behind and remember the beautiful bond we shared. ❤️♾️<br><br>
+            <b>I still value you and our bond a lot, meri besti bandariya. Please maaf karde! 🐼❤️🐒🫶🏻</b>
+        </div>
+    </div>
+</div>
+
+<script>
+    let percent = 0;
+    let fill = document.getElementById('pFill');
+    let text = document.getElementById('pPercent');
+    let interval = setInterval(() => {
+        percent++;
+        fill.style.width = Math.min(percent, 100) + '%';
+        text.innerText = percent + '%';
+        if(percent >= 120) {
+            clearInterval(interval);
+            document.getElementById('warnText').style.display = 'block';
+            document.getElementById('nextBtn1').style.display = 'block';
+            startHearts();
+        }
+    }, 40);
+
+    function goToStep(stepNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    let revealedCount = 0;
+    function revealCard(el, msg) {
+        if(!el.classList.contains('revealed')) {
+            el.innerText = msg;
+            el.classList.add('revealed');
+            revealedCount++;
+            if(revealedCount >= 3) {
+                document.getElementById('nextBtn2').style.display = 'block';
+            }
+        }
+    }
+
+    let photoIndex = 0;
+    const photos = [
+        { url: "https://i.postimg.cc/ZnN51Npn/278c974dce0de3b1457987522eea60df.jpg", caption: "You Mean Everything 💖 (1/3)", title: "dekh hai na tere jaisa panda 🐼" },
+        { url: "https://i.postimg.cc/50Tt7gHB/5df4cb5ea66682755cfb9d7c81094959.jpg", caption: "Besti Bandariya 🐒 (2/3)", title: "dekh hai na tere jaisa panda 🐼" },
+        { url: "https://i.postimg.cc/g0crnnFH/a5b67e6d71eb110be2aaa6be198c8cc9.jpg", caption: "Always Together ✨ (3/3)", title: "dekh hai na tere jaisa panda 🐼" }
+    ];
+
+    function nextPhoto() {
+        photoIndex++;
+        if(photoIndex < photos.length) {
+            document.getElementById('memoryImg').src = photos[photoIndex].url;
+            document.getElementById('memoryText').innerText = photos[photoIndex].caption;
+            document.getElementById('photoTitle').innerText = photos[photoIndex].title;
+        } else {
+            goToStep(4);
+        }
+    }
+
+    function openLetter() {
+        document.getElementById('env').style.display = 'none';
+        document.getElementById('envHint').style.display = 'none';
+        document.getElementById('letter').style.display = 'block';
+    }
+
+    function startHearts() {
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerHTML = Math.random() > 0.5 ? '💖' : '✨';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }, 200);
+    }
+</script>
+
+</body>
+</html>
